@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ConversionItem } from "@/types/types";
 import { downloadPdf } from "@/utils/file";
-import { DeleteIcon, Download, Loader2, XIcon } from "lucide-react";
+import { Download, Loader2, XIcon } from "lucide-react";
 import { useTransition } from "react";
 
 interface ConversionHistoryItemProps {
