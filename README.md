@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# PDF Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple React application that allows users to convert text to PDF, styled with Tailwind CSS.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- `src/`
+  - `components/`
+    - `ui/`- Shadcn UI components
+    - `create-pdf-form.tsx`: Component for text input and conversion button
+    - `pdf-viewer.tsx`: Component for displaying the converted PDF
+    - `conversion-history.tsx`: Component for displaying conversion history
+  - `utils/`
+    - `api.ts`: Utility functions for API calls
+    - `storage.ts`: Utility functions for local storage operations
+    - `file.ts`: Utility functions for file operations
+  - `types/`
+    - `types.ts`: Type definitions
+  - `App.tsx`: Main application component
+  - `main.tsx`: Entry point of the application
+  - `index.css`: Global styles and Tailwind directives
 
-## Expanding the ESLint configuration
+## Main Modules
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **App**: The main component that orchestrates the application flow.
+2. **CreatePdfForm**: Handles user input and triggers the conversion process.
+3. **PdfViewer**: Displays the converted PDF using react-pdf library.
+4. **ConversionHistory**: Shows the history of conversions and allows users to view past conversions.
+5. **API Utilities**: Handles the communication with the PDF conversion API.
+6. **Storage Utilities**: Manages saving and retrieving conversion history from local storage.
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
+4. Run tests: `npm test`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Features
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Convert text to PDF
+- View converted PDF
+- View conversion history
+- Download PDF
+- Responsive design
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```

@@ -1,35 +1,96 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import type React from "react";
+import { useState, useEffect } from "react";
+import { CreatePdfForm } from "@/components/create-pdf-form";
+import { PdfViewer } from "@/components/pdf-viewer";
+import { ConversionHistory } from "@/components/conversion-history";
+import { convertToPdf } from "@/utils/api";
+import { saveToHistory, getHistory, updateHistory } from "@/utils/storage";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { blobToBase64 } from "@/utils/file";
+import { ConversionItem } from "@/types/types";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [history, setHistory] = useState<ConversionItem[]>([]);
+
+  useEffect(() => {
+    setHistory(getHistory());
+  }, []);
+
+  const handleConvert = async (text: string) => {
+    try {
+      const response = await convertToPdf(text);
+
+      if (!response.data) throw new Error("PDF not found");
+
+      const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+      const base64Data = await blobToBase64(pdfBlob);
+
+      setPdfUrl(base64Data);
+
+      const newItem: ConversionItem = {
+        id: crypto.randomUUID(),
+        text,
+        pdfUrl: base64Data,
+      };
+
+      saveToHistory(newItem);
+      setHistory((prevHistory) => [newItem, ...prevHistory]);
+    } catch (error) {
+      console.error("Error converting to PDF:", error);
+    }
+  };
+
+  const handleRemoveItem = (id: string) => {
+    const item = history.find((item) => item.id === id);
+    const updatedHistory = history.filter((item) => item.id !== id);
+    setHistory(updatedHistory);
+    updateHistory(updatedHistory);
+
+    if (pdfUrl === item?.pdfUrl) {
+      setPdfUrl(null);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container mx-auto p-4">
+      <h1 className="text-4xl font-bold text-center mb-8">PDF Converter</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Convert Text to PDF</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CreatePdfForm onConvert={handleConvert} />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>PDF Preview</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {pdfUrl ? (
+              <PdfViewer pdfUrl={pdfUrl} />
+            ) : (
+              <p className="text-center text-gray-500">No PDF to display</p>
+            )}
+          </CardContent>
+        </Card>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle>Conversion History</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ConversionHistory
+            history={history}
+            onSelect={setPdfUrl}
+            onRemove={handleRemoveItem}
+          />
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 
-export default App
+export default App;
