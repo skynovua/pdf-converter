@@ -6,22 +6,24 @@ This is a simple React application that allows users to convert text to PDF, sty
 
 - `src/`
   - `components/`
-    - `TextInput.tsx`: Component for text input and conversion button
-    - `PdfViewer.tsx`: Component for displaying the converted PDF
-    - `ConversionHistory.tsx`: Component for displaying conversion history
+    - `ui/`- Shadcn UI components
+    - `create-pdf-form.tsx`: Component for text input and conversion button
+    - `pdf-viewer.tsx`: Component for displaying the converted PDF
+    - `conversion-history.tsx`: Component for displaying conversion history
   - `utils/`
     - `api.ts`: Utility functions for API calls
     - `storage.ts`: Utility functions for local storage operations
+    - `file.ts`: Utility functions for file operations
+  - `types/`
+    - `types.ts`: Type definitions
   - `App.tsx`: Main application component
-  - `index.tsx`: Entry point of the application
+  - `main.tsx`: Entry point of the application
   - `index.css`: Global styles and Tailwind directives
-- `tailwind.config.js`: Tailwind CSS configuration
-- `postcss.config.js`: PostCSS configuration
 
 ## Main Modules
 
 1. **App**: The main component that orchestrates the application flow.
-2. **TextInput**: Handles user input and triggers the conversion process.
+2. **CreatePdfForm**: Handles user input and triggers the conversion process.
 3. **PdfViewer**: Displays the converted PDF using react-pdf library.
 4. **ConversionHistory**: Shows the history of conversions and allows users to view past conversions.
 5. **API Utilities**: Handles the communication with the PDF conversion API.
@@ -34,7 +36,11 @@ This is a simple React application that allows users to convert text to PDF, sty
 3. Start the development server: `npm start`
 4. Run tests: `npm test`
 
-## Note
+## Features
 
-Make sure to replace the `API_URL` in `src/utils/api.ts` with the actual URL of your PDF conversion API.
+- Convert text to PDF
+- View converted PDF
+- View conversion history
+- Download PDF
+- Responsive design
 
