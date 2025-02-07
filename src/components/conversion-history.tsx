@@ -1,27 +1,26 @@
-import { ConversionItem } from "@/types/item";
-import { Button } from "@/components/ui/button";
+import { ConversionItem } from "@/types/types";
+import { ConversionHistoryItem } from "@/components/conversion-history-item";
 
 interface ConversionHistoryProps {
   history: ConversionItem[];
   onSelect: (pdfUrl: string) => void;
+  onRemove: (id: string) => void;
 }
 
-export function ConversionHistory({
+export const ConversionHistory = ({
   history,
-  onSelect,
-}: ConversionHistoryProps) {
+  ...props
+}: ConversionHistoryProps) => {
+
+  if (!history.length) {
+    return <p className="text-center text-gray-500">No history to display</p>;
+  }
+
   return (
     <div className="space-y-2">
       {history.map((item) => (
-        <Button
-          key={item.id}
-          variant="outline"
-          className="w-full justify-start overflow-hidden"
-          onClick={() => onSelect(item.pdfUrl)}
-        >
-          <span className="truncate">{item.text}</span>
-        </Button>
+        <ConversionHistoryItem key={item.id} item={item} {...props} />
       ))}
     </div>
   );
-}
+};

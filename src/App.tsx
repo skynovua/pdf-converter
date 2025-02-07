@@ -4,12 +4,10 @@ import { CreatePdfForm } from "@/components/create-pdf-form";
 import { PdfViewer } from "@/components/pdf-viewer";
 import { ConversionHistory } from "@/components/conversion-history";
 import { convertToPdf } from "@/utils/api";
-import { saveToHistory, getHistory } from "@/utils/storage";
+import { saveToHistory, getHistory, updateHistory } from "@/utils/storage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { blobToBase64 } from "@/utils/file";
-import { ConversionItem } from "@/types/item";
-
-
+import { ConversionItem } from "@/types/types";
 
 const App: React.FC = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -26,7 +24,7 @@ const App: React.FC = () => {
       if (!response.data) throw new Error("PDF not found");
 
       const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-      const base64Data = await blobToBase64(pdfBlob);      
+      const base64Data = await blobToBase64(pdfBlob);
 
       setPdfUrl(base64Data);
 
@@ -40,6 +38,17 @@ const App: React.FC = () => {
       setHistory((prevHistory) => [newItem, ...prevHistory]);
     } catch (error) {
       console.error("Error converting to PDF:", error);
+    }
+  };
+
+  const handleRemoveItem = (id: string) => {
+    const item = history.find((item) => item.id === id);
+    const updatedHistory = history.filter((item) => item.id !== id);
+    setHistory(updatedHistory);
+    updateHistory(updatedHistory);
+
+    if (pdfUrl === item?.pdfUrl) {
+      setPdfUrl(null);
     }
   };
 
@@ -73,7 +82,11 @@ const App: React.FC = () => {
           <CardTitle>Conversion History</CardTitle>
         </CardHeader>
         <CardContent>
-          <ConversionHistory history={history} onSelect={setPdfUrl} />
+          <ConversionHistory
+            history={history}
+            onSelect={setPdfUrl}
+            onRemove={handleRemoveItem}
+          />
         </CardContent>
       </Card>
     </div>

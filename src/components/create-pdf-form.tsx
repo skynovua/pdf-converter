@@ -1,24 +1,28 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import type React from "react";
+import { useState, useTransition } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface TextInputProps {
-  onConvert: (text: string) => void
+  onConvert: (text: string) => Promise<void>;
 }
 
-export function CreatePdfForm({ onConvert }: TextInputProps) {
-  const [text, setText] = useState("")
+export const CreatePdfForm = ({ onConvert }: TextInputProps) => {
+  const [text, setText] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (text.trim()) {
-      onConvert(text)
-      setText("")
-    }
-  }
+    e.preventDefault();
+    startTransition(async () => {
+      if (text.trim()) {
+        await onConvert(text);
+        setText("");
+      }
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -29,10 +33,10 @@ export function CreatePdfForm({ onConvert }: TextInputProps) {
         rows={10}
         className="w-full"
       />
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Convert to PDF
       </Button>
     </form>
-  )
-}
-
+  );
+};

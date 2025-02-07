@@ -22,7 +22,7 @@ interface PdfViewerProps {
   pdfUrl: string;
 }
 
-export function PdfViewer({ pdfUrl }: PdfViewerProps) {
+export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [open, setOpen] = useState(false);
@@ -60,9 +60,7 @@ export function PdfViewer({ pdfUrl }: PdfViewerProps) {
               onLoadSuccess={onDocumentLoadSuccess}
               className="border shadow-lg"
             >
-              {Array.from({ length: numPages! }, (_, i) => (
-                <Page key={i} pageNumber={i + 1} />
-              ))}
+              <Page pageNumber={pageNumber}  />
             </Document>
           </div>
           <DialogFooter>
