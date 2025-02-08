@@ -4,12 +4,13 @@ import { describe, expect, it, vi } from "vitest";
 import { convertToPdf } from "@/utils/api";
 
 vi.mock("axios");
+const mockedAxios = vi.mocked(axios, true);
 
 describe("convertToPdf", () => {
   it("should call axios.post with correct parameters", async () => {
     const text = "Sample text";
     const response = { data: new Blob() };
-    axios.post.mockResolvedValue(response);
+    mockedAxios.post.mockResolvedValue(response);
 
     const result = await convertToPdf(text);
 
@@ -27,7 +28,7 @@ describe("convertToPdf", () => {
   it("should handle errors correctly", async () => {
     const text = "Sample text";
     const errorMessage = "Network Error";
-    axios.post.mockRejectedValue(new Error(errorMessage));
+    mockedAxios.post.mockRejectedValue(new Error(errorMessage));
 
     await expect(convertToPdf(text)).rejects.toThrow(errorMessage);
   });

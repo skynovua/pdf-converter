@@ -2,11 +2,14 @@
 
 This is a simple React application that allows users to convert text to PDF, styled with Tailwind CSS.
 
+![PDF Converter](public/pdf-converter.png)
+
 ## Project Structure
 
 - `src/`
   - `__tests__/`
     - `api.test.ts`: Tests for API utility functions
+    - `storage.test.ts`: Tests for storage utility functions
     - `App.test.tsx`: Tests for the main application component
   - `components/`
     - `ui/`- Shadcn UI components
@@ -46,3 +49,7 @@ This is a simple React application that allows users to convert text to PDF, sty
 - View conversion history
 - Download PDF
 - Responsive design
+
+## Author
+
+- [Anton Yanovskyi](https://github.com/skynovua)
