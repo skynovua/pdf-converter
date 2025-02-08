@@ -5,6 +5,9 @@ This is a simple React application that allows users to convert text to PDF, sty
 ## Project Structure
 
 - `src/`
+  - `__tests__/`
+    - `api.test.ts`: Tests for API utility functions
+    - `App.test.tsx`: Tests for the main application component
   - `components/`
     - `ui/`- Shadcn UI components
     - `create-pdf-form.tsx`: Component for text input and conversion button
@@ -43,4 +46,3 @@ This is a simple React application that allows users to convert text to PDF, sty
 - View conversion history
 - Download PDF
 - Responsive design
-
