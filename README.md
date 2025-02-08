@@ -4,7 +4,7 @@ This is a simple React application that allows users to convert text to PDF, sty
 
 Check out the video demo by clicking on the image below:
 
-[![PDF Converter](public/pdf-converter.png)](https://drive.google.com/file/d/1OfbUZAbMkw0YeCfAJ000TdsZcZHHy3PL/view)
+[![PDF Converter](public/pdf-converter.png)](https://drive.google.com/file/d/1AE8AEGBWV_dzxtaliYJ8nqQ6rkwZDeUc/view)
 
 ## Project Structure
 
