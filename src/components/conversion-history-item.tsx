@@ -32,10 +32,10 @@ export const ConversionHistoryItem = ({
       >
         <span className="truncate">{item.text}</span>
       </Button>
-      <Button onClick={() => onDownload(item.pdfUrl, 'converted')}>
+      <Button onClick={() => onDownload(item.pdfUrl, 'converted')} title="Download">
         {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download />}
       </Button>
-      <Button variant="destructive" onClick={() => onRemove(item.id)}>
+      <Button variant="destructive" onClick={() => onRemove(item.id)} title="Remove">
         <XIcon />
       </Button>
     </div>

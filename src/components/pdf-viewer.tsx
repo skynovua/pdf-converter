@@ -39,7 +39,7 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" data-testid="pdf-viewer">
       <Document
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
