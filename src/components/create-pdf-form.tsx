@@ -1,6 +1,3 @@
-"use client";
-
-import type React from "react";
 import { useState, useTransition } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
