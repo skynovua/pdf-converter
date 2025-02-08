@@ -1,5 +1,5 @@
-import { ConversionItem } from "@/types/types";
 import { ConversionHistoryItem } from "@/components/conversion-history-item";
+import { ConversionItem } from "@/types/types";
 
 interface ConversionHistoryProps {
   history: ConversionItem[];
@@ -7,11 +7,7 @@ interface ConversionHistoryProps {
   onRemove: (id: string) => void;
 }
 
-export const ConversionHistory = ({
-  history,
-  ...props
-}: ConversionHistoryProps) => {
-
+export const ConversionHistory = ({ history, ...props }: ConversionHistoryProps) => {
   if (!history.length) {
     return <p className="text-center text-gray-500">No history to display</p>;
   }

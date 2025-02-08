@@ -1,13 +1,14 @@
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { ConversionHistory } from "@/components/conversion-history";
 import { CreatePdfForm } from "@/components/create-pdf-form";
 import { PdfViewer } from "@/components/pdf-viewer";
-import { ConversionHistory } from "@/components/conversion-history";
-import { convertToPdf } from "@/utils/api";
-import { saveToHistory, getHistory, updateHistory } from "@/utils/storage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { blobToBase64 } from "@/utils/file";
 import { ConversionItem } from "@/types/types";
+import { convertToPdf } from "@/utils/api";
+import { blobToBase64 } from "@/utils/file";
+import { getHistory, saveToHistory, updateHistory } from "@/utils/storage";
 
 const App: React.FC = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -54,8 +55,8 @@ const App: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-8">PDF Converter</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <h1 className="mb-8 text-center text-4xl font-bold">PDF Converter</h1>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Convert Text to PDF</CardTitle>
@@ -82,11 +83,7 @@ const App: React.FC = () => {
           <CardTitle>Conversion History</CardTitle>
         </CardHeader>
         <CardContent>
-          <ConversionHistory
-            history={history}
-            onSelect={setPdfUrl}
-            onRemove={handleRemoveItem}
-          />
+          <ConversionHistory history={history} onSelect={setPdfUrl} onRemove={handleRemoveItem} />
         </CardContent>
       </Card>
     </div>
