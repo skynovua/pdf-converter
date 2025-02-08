@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dialog";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
+  'pdfjs-dist/build/pdf.worker.min.js',
+  import.meta.url,
 ).toString();
 
 interface PdfViewerProps {
@@ -43,7 +43,7 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
       <Document
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
-        className="max-h-[500px] overflow-auto border rounded-lg shadow-lg cursor-pointer"
+        className="border shadow-lg cursor-pointer"
         onClick={() => setOpen(true)}
       >
         <Page pageNumber={pageNumber} width={200} />
