@@ -1,7 +1,9 @@
 import { useState, useTransition } from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+
 import { Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 interface TextInputProps {
   onConvert: (text: string) => Promise<void>;

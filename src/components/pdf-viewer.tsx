@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
+  "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url,
 ).toString();
 
@@ -34,7 +35,7 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
 
   const changePage = (offset: number) => {
     setPageNumber((prevPageNumber) =>
-      Math.min(Math.max(prevPageNumber + offset, 1), numPages || 1)
+      Math.min(Math.max(prevPageNumber + offset, 1), numPages || 1),
     );
   };
 
@@ -43,7 +44,7 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
       <Document
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
-        className="border shadow-lg cursor-pointer"
+        className="cursor-pointer border shadow-lg"
         onClick={() => setOpen(true)}
       >
         <Page pageNumber={pageNumber} width={200} />
@@ -60,22 +61,16 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
               onLoadSuccess={onDocumentLoadSuccess}
               className="border shadow-lg"
             >
-              <Page pageNumber={pageNumber}  />
+              <Page pageNumber={pageNumber} />
             </Document>
           </div>
           <DialogFooter>
-            <div className="flex items-center justify-between w-full mt-4">
+            <div className="mt-4 flex w-full items-center justify-between">
               <div className="space-x-2">
-                <Button
-                  onClick={() => changePage(-1)}
-                  disabled={pageNumber <= 1}
-                >
+                <Button onClick={() => changePage(-1)} disabled={pageNumber <= 1}>
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                <Button
-                  onClick={() => changePage(1)}
-                  disabled={pageNumber >= (numPages || 1)}
-                >
+                <Button onClick={() => changePage(1)} disabled={pageNumber >= (numPages || 1)}>
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -88,4 +83,4 @@ export const PdfViewer = ({ pdfUrl }: PdfViewerProps) => {
       </Dialog>
     </div>
   );
-}
+};

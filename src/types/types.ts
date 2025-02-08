@@ -1,5 +1,5 @@
 export interface ConversionItem {
-    id: string
-    text: string
-    pdfUrl: string
-  }
+  id: string;
+  text: string;
+  pdfUrl: string;
+}
