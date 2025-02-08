@@ -40,9 +40,29 @@ Check out the video demo by clicking on the image below:
 ## Getting Started
 
 1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
-4. Run tests: `npm test`
+
+```bash
+git clone https://github.com/skynovua/pdf-converter.git
+cd pdf-converter
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Start the development server
+
+```bash
+npm run dev
+```
+
+4. Run tests
+
+```bash
+npm run test
+```
 
 ## Features
 
